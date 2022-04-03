@@ -1,23 +1,8 @@
 import knex from 'knex';
+import { default as knexBookshelf } from 'bookshelf';
 import config from './config.js';
+
 const db = (knex)(config);
+export const bookshelf = knexBookshelf(db);
 
-;(async function() {
-  try {
-    // console.log(db.select().table('users'))
-    db.select().table('users')
-    .where({ username: 'maria88' })
-    .select('password')
-    .then(function(result) {
-      console.log(result)
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-    
-
-  } catch (e) {
-    console.log()
-  } finally {
-  }
-})()
+export default db;
