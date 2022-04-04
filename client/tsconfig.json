@@ -21,6 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src/global/*", "src/styles/fonts.d.ts",
+    "src/global/*",
   ]
 }
