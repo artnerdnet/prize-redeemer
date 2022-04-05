@@ -5,6 +5,7 @@ import Card from '../../Card';
 import { StyledWrapper, StyledTitle, StyledContentContainer, StyledImageWrapper, StyledImage } from './WrapperStyles';
 import PointsTag from '../../PointsTag';
 import Button from '../../Button/Button';
+import ProductCard from '../../ProductCard/ProductCard';
 
 const Wrapper: FunctionComponent = () => {
   const { products } = useDataContext().dataContext;
@@ -12,16 +13,17 @@ const Wrapper: FunctionComponent = () => {
   return (
     <StyledWrapper data-testid="wrapper">
       {products.map((product) => (
-        <Card key={uuid()}>
-          <StyledContentContainer>
-            <StyledTitle>{product.name}</StyledTitle>
-              <PointsTag count={product.points} />
-            <StyledImageWrapper>
-              <StyledImage src={product.image} />
-            </StyledImageWrapper>
-            <Button>get</Button>
-          </StyledContentContainer>
-        </Card>
+        <ProductCard product={product} state={product.state} />
+        // <Card key={uuid()}>
+        //   <StyledContentContainer>
+        //       <PointsTag count={product.points} />
+        //     <StyledImageWrapper>
+        //       <StyledImage src={product.image} />
+        //     </StyledImageWrapper>
+        //     <StyledTitle>{product.name}</StyledTitle>
+        //     <Button>Redeem</Button>
+        //   </StyledContentContainer>
+        // </Card>
       ))}
     </StyledWrapper>
   );

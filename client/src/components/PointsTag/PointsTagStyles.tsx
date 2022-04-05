@@ -12,11 +12,12 @@ const StyledPointsTag = styled.div`
   width: ${(props) => props.theme.size.size60};
   position: relative;
   top: ${(props) => props.theme.spacing.space44};
-  left: ${(props) => props.theme.spacing.space190}
+  left: ${(props) => props.theme.spacing.space190};
+  z-index: 2;
 `
 
 const StyledPointsText = styled.span`
-font-weight: ${(props) => props.theme.fonts.weight.black};
+  font-weight: ${(props) => props.theme.fonts.weight.black};
   max-width: 99%;
   text-align: center;
   text-transform: uppercase;

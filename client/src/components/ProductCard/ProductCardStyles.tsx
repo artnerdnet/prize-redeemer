@@ -1,20 +1,32 @@
 import styled from 'styled-components';
 
-const StyledWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 320px);
-  justify-content: center;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
 
-  > div {
-    margin: 0 auto;
-  }
+const StyledNotice = styled.span`
+  align-items: center;
+  background: ${(props) => props.theme.colors.error};
+  border-radius: ${(props) => props.theme.size.size5};
+  color: ${(props) => props.theme.colors.white};
+  display: flex;
+  height: ${(props) => props.theme.size.size68};
+  justify-content: center;
+  position: relative;
+  width: ${(props) => props.theme.size.size225};
+  opacity: 100% !important;
+  left: 15%;
+  z-index: 30000;
+  bottom: 50%;
 `;
 
-const StyledContentContainer = styled.div`
-    margin: ${(props) => props.theme.spacing.space30};
-  `;
+const ProductCardWrapper = styled.div`
+ 
+`;
+
+const StyledContentContainer = styled.div<{disabled: boolean}>`
+  margin: ${(props) => props.theme.spacing.space30};
+  && *:not(span) {
+    opacity: ${(props) => props.disabled ? 0.5 : 1};
+  }
+`;
 
 const StyledTitle = styled.div`
   margin: 16px 0;
@@ -40,10 +52,12 @@ const StyledImage = styled.img`
   height: ${(props) => props.theme.size.size400};
 `;
 
+
 export {
-  StyledWrapper,
-  StyledTitle, 
+  StyledTitle,
+  StyledNotice,
   StyledContentContainer, 
   StyledImageWrapper, 
+  ProductCardWrapper,
   StyledImage
 };

@@ -1,13 +1,13 @@
 export type TDataContext = {
-  user: User | {},
-  products: Array<Product> | [],
+  user: IUser | {},
+  products: Array<IProduct> | [],
   error: {
     message: string | null;
   };
   loading: boolean;
 };
 
-export interface User {
+export interface IUser {
   id: number;
   name: string;
   username: string;
@@ -18,7 +18,7 @@ export interface User {
   updated_at: string;
 }
 
-export interface Product {
+export interface IProduct {
   name: string;
   points: number;
   image: string;

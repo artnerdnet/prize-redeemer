@@ -15,71 +15,88 @@ export const user = {
   picture: product1,
   created_at: "2022-04-03T09:38:59.000Z",
   updated_at: "2022-04-03T09:53:22.686Z",
-  points: 2000
+  points: 2000,
 };
 
 export const products = [
   {
+    id: 0,
+    units: 20,
+    name: "Buxom Lipstick",
+    image: product1,
+    points: 80,
+    created_at: "2022-04-03T09:53:22.686Z",
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'unredeemable'
+  },
+  {
     id: 1,
     units: 20,
-    name: "Perfume",
+    name: "Dior Hydration Cream",
     image: product2,
-    points: 200,
+    points: 7000,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'unredeemable'
   },
   {
     id: 2,
     units: 10,
-    name: "Make up",
+    name: "Occitane Rose Hand Cream",
     image: product3,
-    points: 150,
+    points: 2040,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'redeemed'
   },
   {
     id: 2,
     units: 10,
-    name: "Make up",
+    name: "Klairs Preparation Toner",
     image: product4,
     points: 150,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'redeemable'
   },
   {
     id: 2,
     units: 10,
-    name: "Make up",
+    name: "Buxom Eyebrow Pencil",
     image: product5,
-    points: 150,
+    points: 800,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'redeemable'
   },
   {
     id: 2,
-    units: 10,
-    name: "Make up",
+    units: 0,
+    name: "Klairs Deep Clenaser Oil",
     image: product6,
-    points: 150,
+    points: 3400,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'unavailable'
   },
   {
     id: 2,
     units: 10,
-    name: "Make up",
+    name: "Dior Glow Lipstick",
     image: product7,
-    points: 150,
+    points: 4800,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'redeemable'
   },
   {
     id: 2,
     units: 10,
-    name: "Make up",
+    name: "Klairs Vitamin Mask",
     image: product8,
-    points: 150,
+    points: 4500,
     created_at: "2022-04-03T09:53:22.686Z",
-    updated_at: "2022-04-03T09:53:22.686Z"
+    updated_at: "2022-04-03T09:53:22.686Z",
+    state: 'redeemable'
   },
 ]

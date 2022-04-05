@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
 export type TButtonProps = {
-  children: ReactNode
+  children: ReactNode,
+  disabled?: boolean,
 };

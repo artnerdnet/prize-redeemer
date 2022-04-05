@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import StyledButton from './ButtonStyles';
-import StyledCard from './CardStyles';
-import TButtonProps  from './ButtonStyles';
+import { TButtonProps } from './ButtonTypes';
 
-const Button: FunctionComponent<TButtonProps> = ({ children }) => (
-  <StyledButton data-testid="Button">
+const Button: FunctionComponent<TButtonProps> = ({ children, ...props }) => (
+  <StyledButton disabled={props.disabled} data-testid="Button" >
     {children}
   </StyledButton>
 );
