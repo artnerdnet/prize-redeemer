@@ -22,5 +22,6 @@
   },
   "include": [
     "src/global/*",
+    "src/custom.d.ts",
   ]
 }

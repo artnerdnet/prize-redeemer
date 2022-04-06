@@ -5,8 +5,7 @@ import {
 
 const Layout: FunctionComponent = () => (
   <StyledHeader>
-    <StyledTitle>Apps by Host</StyledTitle>
-    <StyledSubtitle>for user lala@gmail.com</StyledSubtitle>
+    <StyledTitle>Prizes</StyledTitle>
   </StyledHeader>
 );
 

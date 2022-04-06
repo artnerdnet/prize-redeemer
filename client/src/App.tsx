@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDataContext } from './global/dataContext';
 import Theme from './styles';
-import Layout from './components/Layout/Layout';
-import Loading from './components/Loading/Loading';
+import Layout from './components/Layout/';
+import Loading from './components/Loading/';
+import Hero from './components/Hero/';
 
 function App() {
   const { dataContext, setDataContext } = useDataContext();
@@ -15,6 +16,7 @@ function App() {
   return (
     <Theme>
       {dataContext.loading && <Loading />}
+      <Hero />
       <Layout />
     </Theme>
   );
