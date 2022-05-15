@@ -7,6 +7,11 @@ export const getOrders = (req, res, next) =>
     .then((orders) => res.json({ ok: true, message: 'Orders found', orders }))
     .catch(next)
 
+export const getOrdersByUserId = async (req, res, next) =>
+  transactionHandler(TABLE_NAME).findAllByKey({ userId: req.body.userId })
+    .then((orders) => res.json({ ok: true, message: 'Orders by user found', orders }))
+    .catch(next)
+
 export const createOrder = async (req, res, next) =>
   transactionHandler(TABLE_NAME).create(req.body)
     .then((order) => res.json({ ok: true, message: 'Order created', order }))
