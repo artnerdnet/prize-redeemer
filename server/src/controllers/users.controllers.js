@@ -3,7 +3,8 @@ import { transactionHandler } from '../helpers/utils.js';
 const TABLE_NAME = 'users';
 
 // TODO pagination https://gist.github.com/andremsantos/33781f39444efddbf619514104c55f7d
-// TODO validation 
+// TODO validation with bookshelf 
+
 export const getUsers = (req, res, next) => 
   transactionHandler(TABLE_NAME).findAll()
   .then((users) => res.json({ ok: true, message: 'Users found', users }))
