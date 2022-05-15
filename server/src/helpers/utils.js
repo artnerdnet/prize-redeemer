@@ -1,12 +1,15 @@
-import db from '../../config/db.js';
+import { prisma } from '../../config/db.js';
 
 export const transactionHandler = (table) => {
-  const findAll = async () => await db.select().from(table);
-  const findById = async (id) => await db.select().from(table).where({ id });
-  const findByKey = async (key) => await db.select().from(table).where({ key })[0];
-  const create = async (params) => await db.select().from(table).insert(params);
-  const update = async (params) => await db.select().from(table).where('id', params.id).update(params);
-  const destroy = async (id) => await db.select().from(table).where(id).del();
+  const findAll = async () => await prisma[table].findMany();
+  const findById = async (id) => await prisma[table].findUnique({ where: { id } });
+  const findByKey = async (key) => await prisma[table].findUnique({ where: { key } });
+  const create = async (params) => await prisma[table].insert(params);
+  const update = async (params) => await prisma[table].update({
+    where: { id: params.id },
+    data: { ...params }
+  })
+  const destroy = async (id) => await prisma[table].delete({ where: { id } })
 
   return {
     findAll,

@@ -1,8 +1,5 @@
-import knex from 'knex';
-import { default as knexBookshelf } from 'bookshelf';
-import config from './config.js';
+import Prisma from '@prisma/client';
 
-const db = (knex)(config);
-export const bookshelf = knexBookshelf(db);
+const { PrismaClient } = Prisma;
 
-export default db;
+export const prisma = new PrismaClient();
