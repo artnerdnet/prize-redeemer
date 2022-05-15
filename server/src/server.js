@@ -1,5 +1,5 @@
 import express from 'express';
-import { productsRouter, usersRouter } from './routes/index.js';
+import { productsRouter, usersRouter, ordersRouter } from './routes/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,7 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', [
   usersRouter,
-  productsRouter
+  productsRouter,
+  ordersRouter
 ])
 
 app.listen(PORT, () => console.log('running on port', PORT))
