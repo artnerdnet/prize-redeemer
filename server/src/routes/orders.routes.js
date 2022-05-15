@@ -15,7 +15,7 @@ router.route('/order')
 router.route('/orders')
   .get(getOrders)
 
-router.route('/orders/user')
+router.route('/orders/user/:id')
   .get(getOrdersByUserId)
 
 export default router;

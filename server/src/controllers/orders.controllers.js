@@ -8,7 +8,7 @@ export const getOrders = (req, res, next) =>
     .catch(next)
 
 export const getOrdersByUserId = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).findAllByKey({ userId: req.body.userId })
+  transactionHandler(TABLE_NAME).findAllByKey({ userId: Number(req.params.id) })
     .then((orders) => res.json({ ok: true, message: 'Orders by user found', orders }))
     .catch(next)
 
