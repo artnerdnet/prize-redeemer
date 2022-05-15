@@ -1,15 +1,15 @@
 import express from 'express';
-import { productsRouter, usersRouter} from './routes/index.js';
-import { User } from './models/user.models.js'
+import { productsRouter, usersRouter } from './routes/index.js';
+
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-console.log(User,'user!')
 app.use('/', [
   usersRouter,
   productsRouter
 ])
 
-app.listen(9229, ()=> console.log('running on port', 9229))
+app.listen(PORT, () => console.log('running on port', PORT))
