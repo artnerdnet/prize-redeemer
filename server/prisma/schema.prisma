@@ -16,12 +16,14 @@ model Product {
 }
 
 model Order {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
-  products  Product[] @relation(references: [id])
-  user      User      @relation(references: [id], fields: [userId])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  productId Int
+  products  Product  @relation(references: [id], fields: [productId])
+  user      User     @relation(references: [id], fields: [userId])
+  orderId   Int      @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
