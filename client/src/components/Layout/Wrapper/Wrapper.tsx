@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { v1 as uuid } from 'uuid';
 import { useDataContext } from '../../../global/dataContext';
 import Card from '../../Card';
@@ -18,11 +18,18 @@ async function getProducts(url = '') {
 
 const Wrapper: FunctionComponent = () => {
   const { setDataContext, dataContext } = useDataContext();
-  getProducts('http://localhost:3001/orders/user/2')
-  .then(data => {
-    // setDataContext(data.orders)
-    console.log(data.orders)
-  });
+
+  useEffect(() => {
+    if (!dataContext.products.length) {
+      getProducts('http://localhost:3001/orders/user/2')
+      .then(data => {
+      // setDataContext(data.orders)
+      setDataContext({ ...dataContext, products: data.products, loading: false })
+      });
+    }
+  }, [])
+  
+  
   return (
     <StyledWrapper data-testid="wrapper">
       {dataContext?.products.map((product) => (

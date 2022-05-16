@@ -19,10 +19,12 @@ export interface IUser {
 }
 
 export interface IProduct {
+  id: number;
+  code: string;
   name: string;
   points: number;
   image: string;
-  units: number;
+  stock: number;
   created_at: string;
   updated_at: string;
 }
