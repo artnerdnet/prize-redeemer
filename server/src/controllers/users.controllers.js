@@ -1,27 +1,27 @@
-import { transactionHandler } from '../helpers/utils.js';
+import { getUsers, getUser, createUser, updateUser, deleteUser } from "../services/users.services.js"
 
-const TABLE_NAME = 'user';
-
-export const getUsers = (req, res, next) =>
-  transactionHandler(TABLE_NAME).findAll()
+export const findAllUsers = (req, res, next) =>
+  getUsers()
     .then((users) => res.json({ ok: true, message: 'Users found', users }))
     .catch(next)
 
-export const createUser = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).create(req.body)
+export const addUser = async (req, res, next) =>
+  createUser(req.body)
     .then((user) => res.json({ ok: true, message: 'User created', user }))
     .catch(next)
-export const getUser = async (req, res, next) => {
-  transactionHandler(TABLE_NAME).findById(req.body.id)
+
+export const findUserById = async (req, res, next) => {
+  getUser(req.body.id)
     .then((user) => res.json({ ok: true, message: 'User found', user }))
     .catch(next)
 }
-export const updateUser = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).update(req.body)
+
+export const editUser = async (req, res, next) =>
+  updateUser(req.body)
     .then((user) => res.json({ ok: true, message: 'User updated', user }))
     .catch(next)
 
-export const deleteUser = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).destroy(req.body.id)
+export const removeUser = async (req, res, next) =>
+  deleteUser(req.body.id)
     .then((user) => res.json({ ok: true, message: 'User deleted', user }))
     .catch(next)

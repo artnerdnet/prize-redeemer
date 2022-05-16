@@ -1,33 +1,44 @@
-import { transactionHandler } from '../helpers/utils.js';
+import { getOrder, getOrders, getOrdersByUserId, createOrder, updateOrder, deleteOrder } from "../services/orders.services.js";
 
-const TABLE_NAME = 'order';
+import { getProduct } from '../services/products.services.js';
 
-export const getOrders = (req, res, next) =>
-  transactionHandler(TABLE_NAME).findAll()
+export const findAllOrders = (req, res, next) =>
+  getOrders()
     .then((orders) => res.json({ ok: true, message: 'Orders found', orders }))
     .catch(next)
 
-export const getOrdersByUserId = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).findAllByKey({ userId: Number(req.params.id) })
-    .then((orders) => res.json({ ok: true, message: 'Orders by user found', orders }))
+export const findOrderById = async (req, res, next) =>
+  getOrder(Number(req.params.id))
+    .then((orders) => {
+      res.json({ ok: true, message: 'Orders by user found', orders })
+    })
     .catch(next)
 
-export const createOrder = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).create(req.body)
+export const addOrder = async (req, res, next) =>
+  createOrder()
     .then((order) => res.json({ ok: true, message: 'Order created', order }))
     .catch(next)
 
-export const getOrder = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).findById(req.body.id)
-    .then((order) => res.json({ ok: true, message: 'Order found', order }))
+export const findAllOrdersByUserId = async (req, res, next) => {
+  getOrdersByUserId(Number(req.params.id))
+    .then((orders) => getAllProducts(orders))
+    .then((products) => res.json({ ok: true, message: 'Products found', products }))
     .catch(next)
+}
 
-export const updateOrder = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).update(req.body)
+export const getAllProducts = async (orders) => {
+  const products = orders.map(async (order) =>
+    await getProduct(order.productId)
+  )
+  return await Promise.all(products);
+}
+
+export const editOrder = async (req, res, next) =>
+  updateOrder(req.body)
     .then((order) => res.json({ ok: true, message: 'Order updated', order }))
     .catch(next)
 
-export const deleteOrder = async (req, res, next) =>
-  transactionHandler(TABLE_NAME).destroy(req.body.id)
+export const removeOrder = async (req, res, next) =>
+  deleteOrder(req.body.id)
     .then((order) => res.json({ ok: true, message: 'Order deleted', order }))
     .catch(next)
