@@ -1,29 +1,30 @@
-import React, { FunctionComponent } from 'react';
-import { v1 as uuid } from 'uuid';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useDataContext } from '../../../global/dataContext';
-import Card from '../../Card';
-import { StyledWrapper, StyledTitle, StyledContentContainer, StyledImageWrapper, StyledImage } from './WrapperStyles';
-import PointsTag from '../../PointsTag';
-import Button from '../../Button/Button';
+import { StyledWrapper } from './WrapperStyles';
 import ProductCard from '../../ProductCard/ProductCard';
 
-const Wrapper: FunctionComponent = () => {
-  const { products } = useDataContext().dataContext;
+async function getProducts(url = '') {
+  const response = await fetch(url);
+  return response.json();
+}
 
+const Wrapper: FunctionComponent = () => {
+  const { setDataContext, dataContext } = useDataContext();
+
+  useEffect(() => {
+    if (!dataContext.products.length) {
+      getProducts('http://localhost:3001/orders/user/2')
+      .then(data => {
+      setDataContext({ ...dataContext, products: data.products, loading: false })
+      });
+    }
+  }, [])
+  
+  
   return (
     <StyledWrapper data-testid="wrapper">
-      {products.map((product) => (
+      {dataContext?.products.map((product) => (
         <ProductCard product={product} state={product.state} />
-        // <Card key={uuid()}>
-        //   <StyledContentContainer>
-        //       <PointsTag count={product.points} />
-        //     <StyledImageWrapper>
-        //       <StyledImage src={product.image} />
-        //     </StyledImageWrapper>
-        //     <StyledTitle>{product.name}</StyledTitle>
-        //     <Button>Redeem</Button>
-        //   </StyledContentContainer>
-        // </Card>
       ))}
     </StyledWrapper>
   );

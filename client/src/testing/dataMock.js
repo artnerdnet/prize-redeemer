@@ -1,11 +1,11 @@
-import product1 from '../assets/imgs/product1.png'
-import product2 from '../assets/imgs/product2.png'
-import product3 from '../assets/imgs/product3.png'
-import product4 from '../assets/imgs/product4.png'
-import product5 from '../assets/imgs/product5.png'
-import product6 from '../assets/imgs/product6.png'
-import product7 from '../assets/imgs/product7.png'
-import product8 from '../assets/imgs/product8.png'
+import product1 from '../assets/imgs/buxom_lipstick.png'
+import product2 from '../assets/imgs/dior_hydration_cream.png'
+import product3 from '../assets/imgs/occitane_rose_hand_cream.png'
+import product4 from '../assets/imgs/klairs_preparation_toner.png'
+import product5 from '../assets/imgs/buxom_eyebrow_pencil.png'
+import product6 from '../assets/imgs/klairs_deep_clenaser_oil.png'
+import product7 from '../assets/imgs/dior_glow_lipstick.png'
+import product8 from '../assets/imgs/klairs_vitamin_mask.png'
 
 export const user = {
   id: 1,
@@ -21,7 +21,8 @@ export const user = {
 export const products = [
   {
     id: 0,
-    units: 20,
+    code: '123',
+    stock: 20,
     name: "Buxom Lipstick",
     image: product1,
     points: 80,
@@ -31,7 +32,8 @@ export const products = [
   },
   {
     id: 1,
-    units: 20,
+    code: '123',
+    stock: 20,
     name: "Dior Hydration Cream",
     image: product2,
     points: 7000,
@@ -41,7 +43,8 @@ export const products = [
   },
   {
     id: 2,
-    units: 10,
+    code: '123',
+    stock: 10,
     name: "Occitane Rose Hand Cream",
     image: product3,
     points: 2040,
@@ -51,7 +54,8 @@ export const products = [
   },
   {
     id: 2,
-    units: 10,
+    code: '123',
+    stock: 10,
     name: "Klairs Preparation Toner",
     image: product4,
     points: 150,
@@ -61,7 +65,8 @@ export const products = [
   },
   {
     id: 2,
-    units: 10,
+    code: '123',
+    stock: 10,
     name: "Buxom Eyebrow Pencil",
     image: product5,
     points: 800,
@@ -71,7 +76,8 @@ export const products = [
   },
   {
     id: 2,
-    units: 0,
+    code: '123',
+    stock: 0,
     name: "Klairs Deep Clenaser Oil",
     image: product6,
     points: 3400,
@@ -81,7 +87,8 @@ export const products = [
   },
   {
     id: 2,
-    units: 10,
+    code: '123',
+    stock: 10,
     name: "Dior Glow Lipstick",
     image: product7,
     points: 4800,
@@ -91,7 +98,8 @@ export const products = [
   },
   {
     id: 2,
-    units: 10,
+    code: '123',
+    stock: 10,
     name: "Klairs Vitamin Mask",
     image: product8,
     points: 4500,

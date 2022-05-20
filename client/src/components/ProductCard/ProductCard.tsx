@@ -18,7 +18,7 @@ const ProductCard: FunctionComponent<TProductCardProps> = ({ product, state }) =
         <StyledContentContainer disabled={isDisabled}>
             <PointsTag count={product.points} />
           <StyledImageWrapper>
-            <StyledImage src={product.image} />
+            <StyledImage src={`/${product.image}`} />
           </StyledImageWrapper>
           <StyledTitle>{product.name}</StyledTitle>
           <Button disabled={isRedeemed}>

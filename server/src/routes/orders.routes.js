@@ -1,21 +1,18 @@
 import express from 'express';
-import { getOrders, getOrder, updateOrder, deleteOrder, createOrder, getOrdersByUserId } from '../controllers/orders.controllers.js';
+import { findOrderById, editOrder, removeOrder, addOrder, findAllOrders, findAllOrdersByUserId } from '../controllers/orders.controllers.js';
 
 const router = express.Router();
 
 router.route('/order')
-  .get(getOrder)
-  .patch(updateOrder)
-  .delete(deleteOrder)
-  .post(createOrder)
-
-router.route('/order')
-  .post(createOrder)
+  .get(findOrderById)
+  .patch(editOrder)
+  .delete(removeOrder)
+  .post(addOrder)
 
 router.route('/orders')
-  .get(getOrders)
+  .get(findAllOrders)
 
 router.route('/orders/user/:id')
-  .get(getOrdersByUserId)
+  .get(findAllOrdersByUserId)
 
 export default router;
