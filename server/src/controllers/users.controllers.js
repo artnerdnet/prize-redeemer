@@ -1,4 +1,4 @@
-import { getUsers, getUser, createUser, updateUser, deleteUser } from "../services/users.services.js"
+import { getUsers, getUser, createUser, updateUser, deleteUser, getUserPoints } from "../services/users.services.js"
 
 export const findAllUsers = (req, res, next) =>
   getUsers()
@@ -25,3 +25,8 @@ export const removeUser = async (req, res, next) =>
   deleteUser(req.body.id)
     .then((user) => res.json({ ok: true, message: 'User deleted', user }))
     .catch(next)
+
+export const retrieveUserPoints = async (id) => {
+  getUserPoints(id)
+    .then((points) => points)
+}

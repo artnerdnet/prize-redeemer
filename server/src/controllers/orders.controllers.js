@@ -25,11 +25,12 @@ export const findAllOrdersByUserId = async (req, res, next) => {
     .catch(next)
 }
 
-export const getAllProducts = async (orders) => {
-  const products = orders.map(async (order) =>
-    await getProduct(order.productId)
-  )
-  return await Promise.all(products);
+export const getAllOrderedProducts = async (id) => {
+  getOrdersByUserId(id)
+    .then((orders) => orders.map(async (order) =>
+      await getProduct(Number(order.productId))
+    ))
+    .then(products => products)
 }
 
 export const editOrder = async (req, res, next) =>

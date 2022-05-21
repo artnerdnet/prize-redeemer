@@ -27,3 +27,8 @@ export const deleteUser = async (id) =>
   transactionHandler(TABLE_NAME).destroy(id)
     .then((user) => user)
     .catch(error => { throw new Error(error) })
+
+export const getUserPoints = async (id) =>
+  transactionHandler(TABLE_NAME).findById(id)
+    .then((user) => user.points)
+    .catch(error => { throw new Error(error) })
