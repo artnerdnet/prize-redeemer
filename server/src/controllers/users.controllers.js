@@ -11,7 +11,8 @@ export const addUser = async (req, res, next) =>
     .catch(next)
 
 export const findUserById = async (req, res, next) => {
-  getUser(req.body.id)
+  const id = Number(req.body.id)
+  getUser(id)
     .then((user) => res.json({ ok: true, message: 'User found', user }))
     .catch(next)
 }
@@ -21,12 +22,14 @@ export const editUser = async (req, res, next) =>
     .then((user) => res.json({ ok: true, message: 'User updated', user }))
     .catch(next)
 
-export const removeUser = async (req, res, next) =>
-  deleteUser(req.body.id)
+export const removeUser = async (req, res, next) => {
+  const id = Number(req.body.id)
+  deleteUser(id)
     .then((user) => res.json({ ok: true, message: 'User deleted', user }))
     .catch(next)
+}
 
-export const retrieveUserPoints = async (id) => {
+export const retrieveUserPoints = async (id) =>
   getUserPoints(id)
     .then((points) => points)
-}
+

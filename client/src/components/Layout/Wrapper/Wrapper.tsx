@@ -14,7 +14,7 @@ const Wrapper: FunctionComponent = () => {
 
   useEffect(() => {
     if (!dataContext.products.length) {
-      getOrders('http://localhost:3001/orders/user')
+      getOrders(2)
       .then(data => {
         console.log(data,'data')
       setDataContext({ ...dataContext, orders: data.products, loading: false })

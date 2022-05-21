@@ -25,13 +25,23 @@ export const findAllOrdersByUserId = async (req, res, next) => {
     .catch(next)
 }
 
-export const getAllOrderedProducts = async (id) => {
+export const getAllRedeemedProducts = (id) =>
   getOrdersByUserId(id)
-    .then((orders) => orders.map(async (order) =>
-      await getProduct(Number(order.productId))
-    ))
+    .then((orders) => {
+      if (orders.length) {
+        return getAllOrderedProducts(orders)
+      } else {
+        throw new Error()
+      }
+    })
     .then(products => products)
-}
+    .catch(e => console.log(e))
+
+const getAllOrderedProducts = async (orders) => await Promise.all(
+  orders.map(async (order) => {
+    return await getProduct(order.productId)
+  })
+)
 
 export const editOrder = async (req, res, next) =>
   updateOrder(req.body)

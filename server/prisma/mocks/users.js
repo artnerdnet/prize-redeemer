@@ -46,7 +46,7 @@ export const mocks = [
       username: 'chris_cornell',
       name: 'Christopher John',
       lastName: 'Cornell',
-      points: 20000,
+      points: 1500,
       password: '123',
       picture: 'https://api.lorem.space/image/face?w=150&h=150'
     },

@@ -1,7 +1,8 @@
 import { errorHandler } from "../lib/error.js"
 import { getProduct, createProduct, getProducts, updateProduct, deleteProduct } from "../services/products.services.js"
-import { getAllOrderedProducts } from "./orders.controllers.js"
+import { getAllRedeemedProducts } from "./orders.controllers.js"
 import { retrieveUserPoints } from "./users.controllers.js"
+import { calcPoints, getStockStatus } from './helpers.js'
 
 // TODO pagination https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 
@@ -31,30 +32,42 @@ export const removeProduct = async (req, res, next) =>
     .catch(next)
 
 export const findProductsStatusByUser = async (req, res, next) => {
-  let foundProducts;
+  const foundProducts = new Array()
+
   getProducts()
     .then((products) => {
       if (!products.length) {
-        errorHandler({ ...res, status: 404 }, 'No products found', 'Not found')
-        throw new Error
+        return errorHandler({ ...res, status: 404 }, 'No products found', 'Not found')
       }
-      foundProducts = products.map(product => product.status = getStockStatus(product.stock))
-    }
-    )
-    .then(() => {
-      const test = getAllOrderedProducts(Number(req.params.id))
-      console.log(test, 'test')
+
+      products.forEach(product => {
+        foundProducts.push({ ...product, status: getStockStatus(product.stock) })
+      })
     })
     .then(() => {
-      if (foundProducts.length) {
-        const userPoints = retrieveUserPoints(Number(req.params.id));
-        foundProducts = products.map(product => product.status = calcPoints(product.points, userPoints))
-        console.log(foundProducts, '>>')
-      }
+      getAllRedeemedProducts(Number(req.params.id))
+        .then(redeemedProducts => {
+          foundProducts.forEach(foundProduct => {
+            if (foundProduct.status !== 0) {
+              redeemedProducts.forEach(redeemedProduct => {
+                if (foundProduct.id === redeemedProduct.id) {
+                  foundProduct.status = 4
+                }
+              })
+            }
+          })
+        })
     })
-    .then(() => res.json({ ok: true, message: 'Products status by user found', foundProducts }))
+    .then(() => {
+      retrieveUserPoints(Number(req.params.id))
+        .then(userPoints => {
+          foundProducts.forEach(product => {
+            if (product.status !== 0) {
+              product.status = calcPoints(product.points, userPoints)
+            }
+          })
+        })
+        .then(() => res.json({ ok: true, message: 'Products status by user found', foundProducts }))
+    })
     .catch(next)
 }
-
-const getStockStatus = (stock) => stock === 0 ? 0 : 1
-const calcPoints = (productPoints, userPoints) => productPoints <= userPoints ? 2 : 3
