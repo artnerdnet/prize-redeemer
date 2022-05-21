@@ -10,7 +10,7 @@ export const findAllOrders = (req, res, next) =>
 export const findOrderById = async (req, res, next) =>
   getOrder(Number(req.params.id))
     .then((orders) => {
-      res.json({ ok: true, message: 'Orders by user found', orders })
+      res.json({ ok: true, message: 'Orders by id found', orders })
     })
     .catch(next)
 
@@ -21,8 +21,7 @@ export const addOrder = async (req, res, next) =>
 
 export const findAllOrdersByUserId = async (req, res, next) => {
   getOrdersByUserId(Number(req.params.id))
-    .then((orders) => getAllProducts(orders))
-    .then((products) => res.json({ ok: true, message: 'Products found', products }))
+    .then((orders) => res.json({ ok: true, message: 'Orders by user id found', orders }))
     .catch(next)
 }
 

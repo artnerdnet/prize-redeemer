@@ -1,6 +1,7 @@
 export type TDataContext = {
   user: IUser | {},
   products: Array<IProduct> | [],
+  orders: Array<IOrder> | [],
   error: {
     message: string | null;
   };
@@ -25,6 +26,15 @@ export interface IProduct {
   points: number;
   image: string;
   stock: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IOrder {
+  id: number;
+  userId: number;
+  productId: number;
+  orderId: number;
   created_at: string;
   updated_at: string;
 }
