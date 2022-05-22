@@ -1,5 +1,12 @@
-import Prisma from '@prisma/client';
+import pkg, { PrismaClient } from '@prisma/client'
 
-const { PrismaClient } = Prisma;
+let prisma
 
-export const prisma = new PrismaClient();
+if (process.env.NODE_ENV === 'production') {
+  const { PrismaClient: PrismaClientProd } = pkg
+  prisma = new PrismaClientProd()
+} else {
+  prisma = new PrismaClient()
+}
+
+export default prisma

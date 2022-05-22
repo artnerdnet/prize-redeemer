@@ -1,4 +1,4 @@
-import { transactionHandler } from '../helpers/utils.js';
+import { transactionHandler } from '../../helpers/utils.js';
 
 const TABLE_NAME = 'product';
 

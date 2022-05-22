@@ -1,6 +1,6 @@
 import { getOrder, getOrders, getOrdersByUserId, createOrder, updateOrder, deleteOrder } from "../services/orders.services.js";
 
-import { getProduct } from '../services/products.services.js';
+import { getProduct } from '../services/product/products.services.js';
 
 export const findAllOrders = (req, res, next) =>
   getOrders()
