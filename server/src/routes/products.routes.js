@@ -1,5 +1,5 @@
 import express from 'express';
-import { findProducts, addProduct, findProductById, editProduct, removeProduct } from '../controllers/products.controllers.js';
+import { findProducts, addProduct, findProductById, editProduct, removeProduct, findProductsStatusByUser } from '#controllers/products/products.controllers.js';
 
 const router = express.Router();
 
@@ -11,5 +11,8 @@ router.route('/product')
 
 router.route('/products')
   .get(findProducts)
+
+router.route('/products/user/:id')
+  .get(findProductsStatusByUser)
 
 export default router;

@@ -5,12 +5,22 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm run start --prefix client",
-    "start:dev": "nodemon --inspect ./src/server.js"
+    "start:dev": "nodemon --inspect ./src/server.js",
+    "test": "jest --config ./jest.config.json",
+    "test:watch": "yarn test . --watch"
   },
   "prisma": {
     "seed": "node ./prisma/seed.js --compiler-options {\"module\":\"CommonJS\"}"
+  },
+  "imports": {
+    "#config/*": "./config/*",
+    "#controllers/*": "./src/controllers/*",
+    "#helpers/*": "./src/helpers/*.js",
+    "#lib/*": "./src/lib/*",
+    "#routes/*": "./src/routes/index.js",
+    "#services/*": "./src/services/*",
+    "#testUtils/*": "./testUtils/*"
   },
   "keywords": [],
   "author": "",
@@ -25,12 +35,19 @@
     "morgan": "^1.10.0",
     "morgan-json": "^1.1.0",
     "mysql2": "^2.3.3",
+    "uuid": "^8.3.2",
     "winston": "^3.6.0",
     "winston-logsene": "^2.1.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.18.0",
+    "@jest-mock/express": "^1.4.5",
+    "babel-jest": "^28.1.0",
     "eslint": "^7.32.0",
+    "jest": "^28.1.0",
+    "jest-mock-extended": "^2.0.6",
     "nodemon": "^2.0.14",
-    "prisma": "3.12.0"
+    "prisma": "3.12.0",
+    "prisma-mock": "^0.0.27"
   }
 }

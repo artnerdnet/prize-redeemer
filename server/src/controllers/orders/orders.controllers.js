@@ -1,6 +1,5 @@
-import { getOrder, getOrders, getOrdersByUserId, createOrder, updateOrder, deleteOrder } from "../services/orders.services.js";
-
-import { getProduct } from '../services/products.services.js';
+import { getOrder, getOrders, getOrdersByUserId, createOrder, updateOrder, deleteOrder } from "#services/orders/orders.services.js";
+import { getProduct } from '#services/products/products.services.js';
 
 export const findAllOrders = (req, res, next) =>
   getOrders()
@@ -10,7 +9,7 @@ export const findAllOrders = (req, res, next) =>
 export const findOrderById = async (req, res, next) =>
   getOrder(Number(req.params.id))
     .then((orders) => {
-      res.json({ ok: true, message: 'Orders by user found', orders })
+      res.json({ ok: true, message: 'Orders by id found', orders })
     })
     .catch(next)
 
@@ -21,17 +20,27 @@ export const addOrder = async (req, res, next) =>
 
 export const findAllOrdersByUserId = async (req, res, next) => {
   getOrdersByUserId(Number(req.params.id))
-    .then((orders) => getAllProducts(orders))
-    .then((products) => res.json({ ok: true, message: 'Products found', products }))
+    .then((orders) => res.json({ ok: true, message: 'Orders by user id found', orders }))
     .catch(next)
 }
 
-export const getAllProducts = async (orders) => {
-  const products = orders.map(async (order) =>
-    await getProduct(order.productId)
-  )
-  return await Promise.all(products);
-}
+export const getAllRedeemedProducts = (id) =>
+  getOrdersByUserId(id)
+    .then((orders) => {
+      if (orders.length) {
+        return getAllOrderedProducts(orders)
+      } else {
+        throw new Error()
+      }
+    })
+    .then(products => products)
+    .catch(e => console.log(e))
+
+const getAllOrderedProducts = async (orders) => await Promise.all(
+  orders.map(async (order) => {
+    return await getProduct(order.productId)
+  })
+)
 
 export const editOrder = async (req, res, next) =>
   updateOrder(req.body)

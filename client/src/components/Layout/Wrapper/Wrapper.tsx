@@ -3,7 +3,8 @@ import { useDataContext } from '../../../global/dataContext';
 import { StyledWrapper } from './WrapperStyles';
 import ProductCard from '../../ProductCard/ProductCard';
 
-async function getProducts(url = '') {
+async function getOrders(userId) {
+  const url = `http://localhost:3001/orders/user/${userId}`
   const response = await fetch(url);
   return response.json();
 }
@@ -13,9 +14,9 @@ const Wrapper: FunctionComponent = () => {
 
   useEffect(() => {
     if (!dataContext.products.length) {
-      getProducts('http://localhost:3001/orders/user/2')
+      getOrders(2)
       .then(data => {
-      setDataContext({ ...dataContext, products: data.products, loading: false })
+      setDataContext({ ...dataContext, orders: data.products, loading: false })
       });
     }
   }, [])
@@ -24,7 +25,7 @@ const Wrapper: FunctionComponent = () => {
   return (
     <StyledWrapper data-testid="wrapper">
       {dataContext?.products.map((product) => (
-        <ProductCard product={product} state={product.state} />
+        <ProductCard key={product.id} product={product} state={product.state} />
       ))}
     </StyledWrapper>
   );

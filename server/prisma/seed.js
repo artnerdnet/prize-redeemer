@@ -1,8 +1,8 @@
 import Prisma from '@prisma/client';
 
-import { mocks as userMocks } from './mocks/users.js';
-import { mocks as productMocks } from './mocks/products.js';
-import { mocks as orderMocks } from './mocks/orders.js';
+import { mocks as userMocks } from './__mocks__/users.js';
+import { mocks as productMocks } from './__mocks__/products.js';
+import { mocks as orderMocks } from './__mocks__/orders.js';
 
 const { PrismaClient } = Prisma;
 const prisma = new PrismaClient()

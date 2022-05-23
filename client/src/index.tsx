@@ -12,6 +12,7 @@ ReactDOM.render(
         {
           user: user,
           products: [],
+          orders: [],
           error: {
             message: null,
           },
