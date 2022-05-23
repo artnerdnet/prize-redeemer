@@ -1,8 +1,6 @@
-import { transactionHandler } from '../../helpers/utils.js';
+import { transactionHandler } from '#helpers/utils';
 
 const TABLE_NAME = 'product';
-
-// TODO pagination https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 
 export const getProducts = () =>
   transactionHandler(TABLE_NAME).findAll()

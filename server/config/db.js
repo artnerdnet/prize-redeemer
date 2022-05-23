@@ -1,4 +1,6 @@
-import pkg, { PrismaClient } from '@prisma/client'
+import pkg from '@prisma/client'
+
+const { PrismaClient } = pkg;
 
 let prisma
 

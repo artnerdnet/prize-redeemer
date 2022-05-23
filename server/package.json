@@ -13,6 +13,15 @@
   "prisma": {
     "seed": "node ./prisma/seed.js --compiler-options {\"module\":\"CommonJS\"}"
   },
+  "imports": {
+    "#config/*": "./config/*",
+    "#controllers/*": "./src/controllers/*",
+    "#helpers/*": "./src/helpers/*.js",
+    "#lib/*": "./src/lib/*",
+    "#routes/*": "./src/routes/index.js",
+    "#services/*": "./src/services/*",
+    "#testUtils/*": "./testUtils/*"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

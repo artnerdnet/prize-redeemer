@@ -1,4 +1,4 @@
-import { getUsers, getUser, createUser, updateUser, deleteUser, getUserPoints } from "../services/users.services.js"
+import { getUsers, getUser, createUser, updateUser, deleteUser, getUserPoints } from "#services/users/users.services.js"
 
 export const findAllUsers = (req, res, next) =>
   getUsers()

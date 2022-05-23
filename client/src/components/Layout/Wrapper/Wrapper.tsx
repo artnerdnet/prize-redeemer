@@ -16,11 +16,9 @@ const Wrapper: FunctionComponent = () => {
     if (!dataContext.products.length) {
       getOrders(2)
       .then(data => {
-        console.log(data,'data')
       setDataContext({ ...dataContext, orders: data.products, loading: false })
       });
     }
-    console.log(dataContext,'>>')
   }, [])
   
   

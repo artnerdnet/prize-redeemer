@@ -1,10 +1,8 @@
-import { errorHandler } from "../lib/error.js"
-import { getProduct, createProduct, getProducts, updateProduct, deleteProduct } from "../services/product/products.services.js"
-import { getAllRedeemedProducts } from "./orders.controllers.js"
-import { retrieveUserPoints } from "./users.controllers.js"
+import { errorHandler } from "#lib/errorHandler/error.js"
+import { getProduct, createProduct, getProducts, updateProduct, deleteProduct } from "#services/products/products.services.js"
+import { getAllRedeemedProducts } from "#controllers/orders/orders.controllers.js"
+import { retrieveUserPoints } from "#controllers/users/users.controllers.js"
 import { calcPoints, getStockStatus } from './helpers.js'
-
-// TODO pagination https://www.prisma.io/docs/concepts/components/prisma-client/pagination
 
 export const findProducts = (req, res, next) =>
   getProducts()
