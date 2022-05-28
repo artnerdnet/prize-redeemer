@@ -1,5 +1,4 @@
 {
   "testRegex": "((\\.|/*.)(test))\\.js?$",
-  "setupFilesAfterEnv": ["./testUtils/setupDb"],
   "testEnvironment": "node"
 }
