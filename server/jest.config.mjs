@@ -3,7 +3,7 @@ export default {
   moduleDirectories: [
     "node_modules"
   ],
-  setupFiles: ["<rootDir>/testUtils/mocks.js"],
+  setupFilesAfterEnv: ["<rootDir>/testUtils/prismaMock.js"],
   moduleFileExtensions: [
     "js"
   ],

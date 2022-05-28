@@ -1,1 +1,1 @@
-jest.mock('./prismaMock.js');
+jest.mock('./prismaMock');

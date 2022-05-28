@@ -9,15 +9,17 @@ import { mocks as userMock } from '../../../../testUtils/mocks/users.js';
 describe('with existing post', () => {
   let user;
 
-  beforeEach(async () => {
-    user = await prisma.user.create({
-      data: userMock[0],
-    });
-  });
+  // console.log(prisma, 'prisma')
+
+  // beforeEach(async () => {
+  //   user = await prisma['User'].create({
+  //     data: userMock[0],
+  //   });
+  // });
 
   it('should return the user', async () => {
     const response = await supertest(app).get('/users').expect(200);
-    expect(true).toBe(false)
+
     expect(JSON.parse(response.text)).toMatchObject([user]);
   });
 });
