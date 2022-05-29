@@ -7,14 +7,14 @@ export const findAllOrders = (req, res, next) =>
     .catch(next)
 
 export const findOrderById = async (req, res, next) =>
-  getOrder(Number(req.params.id))
-    .then((orders) => {
-      res.json({ ok: true, message: 'Orders by id found', orders })
+  getOrder(Number(req.body.id))
+    .then((order) => {
+      res.json({ ok: true, message: 'Order by id found', order })
     })
     .catch(next)
 
 export const addOrder = async (req, res, next) =>
-  createOrder()
+  createOrder(req.body)
     .then((order) => res.json({ ok: true, message: 'Order created', order }))
     .catch(next)
 
@@ -48,6 +48,6 @@ export const editOrder = async (req, res, next) =>
     .catch(next)
 
 export const removeOrder = async (req, res, next) =>
-  deleteOrder(req.body.id)
-    .then((order) => res.json({ ok: true, message: 'Order deleted', order }))
+  deleteOrder(Number(req.body.id))
+    .then(() => res.json({ ok: true, message: 'Order deleted', order: null }))
     .catch(next)

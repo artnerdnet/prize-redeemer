@@ -10,7 +10,7 @@
     "docker:run": "docker run -p 3001:3001 express --env-file .env.dev",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "test": "yarn docker-compose -f docker-compose.test.yml && yarn test:migrate:postgres deploy && dotenv -e .env.test jest -i",
+    "test": "docker-compose -f docker-compose.test.yml && dotenv -e .env.test -- npx prisma migrate reset -f && dotenv -e .env.test jest -i",
     "test:migrate:postgres": "dotenv -e .env.test -- npx prisma migrate dev --schema ./prisma/schema.prisma --name postgres-init --skip-seed",
     "test:migrate:reset": "dotenv -e .env.test -- npx prisma migrate reset --schema ./prisma/schema.prisma",
     "test:db:seed": "dotenv -e .env.test -- npx prisma db seed"

@@ -22,12 +22,10 @@ export const editUser = async (req, res, next) =>
     .then((user) => res.json({ ok: true, message: 'User updated', user }))
     .catch(next)
 
-export const removeUser = async (req, res, next) => {
-  const id = Number(req.body.id)
-  deleteUser(id)
-    .then((user) => res.json({ ok: true, message: 'User deleted', user }))
+export const removeUser = async (req, res, next) =>
+  deleteUser(Number(req.body.id))
+    .then(() => res.json({ ok: true, message: 'User deleted', user: null }))
     .catch(next)
-}
 
 export const retrieveUserPoints = async (id) =>
   getUserPoints(id)

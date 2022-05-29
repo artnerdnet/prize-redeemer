@@ -19,8 +19,8 @@ model Order {
   id        Int      @id @default(autoincrement())
   userId    Int
   productId Int
-  products  Product  @relation(references: [id], fields: [productId])
-  user      User     @relation(references: [id], fields: [userId])
+  products  Product  @relation(references: [id], fields: [productId], onDelete: Cascade)
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
   orderId   Int      @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

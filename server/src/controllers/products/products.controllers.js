@@ -25,8 +25,8 @@ export const editProduct = async (req, res, next) =>
     .catch(next)
 
 export const removeProduct = async (req, res, next) =>
-  deleteProduct(req.body.id)
-    .then((product) => res.json({ ok: true, message: 'Product deleted', product }))
+  deleteProduct(Number(req.body.id))
+    .then(() => res.json({ ok: true, message: 'Product deleted', product: null }))
     .catch(next)
 
 export const findProductsStatusByUser = async (req, res, next) => {

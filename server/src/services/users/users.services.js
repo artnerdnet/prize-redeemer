@@ -17,7 +17,6 @@ export const getUser = async (id) =>
     .then((user) => user)
     .catch(error => { throw new Error(error) })
 
-
 export const updateUser = async (data) =>
   transactionHandler(TABLE_NAME).update(data)
     .then((user) => user)
