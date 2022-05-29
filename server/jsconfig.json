@@ -2,13 +2,14 @@
   "compilerOptions": {
       "baseUrl": ".",
       "paths": {
+          "#src/*": ["./src/*"], 
           "#config/*": ["./config/*"],
           "#controllers/*": ["./src/controllers/*"],
           "#helpers/*": ["./src/helpers/*"],
           "#lib/*": ["./src/lib/*"],
           "#routes": ["./src/routes/index.js"],
           "#services/*": ["./src/services/*"],
-          "#testUtils/*": ["./testUtils/*"]
+          "#testUtils/*": ["./src/testUtils/*"]
       }
   }
 }

@@ -1,15 +1,26 @@
 # Set the version of docker compose to use
 version: '3.9'
 
-# The containers that compose the project
 services:
-  db:
+  server:
+    container_name: server
+    command: yarn start
+    volumes:
+      - .:/usr/src/
+      - /usr/src/node_modules
+    ports:
+      - "3001:3001"
+    depends_on:
+      - dbtest
+    env_file: 
+      - ./.env.dev
+  dbtest:
+    env_file: 
+      - ./.env.test
     image: postgres:13
     restart: always
-    container_name: integration-tests-prisma
+    container_name: testdb
     ports:
       - '5433:5432'
-    environment:
-      POSTGRES_USER: prisma
-      POSTGRES_PASSWORD: prisma
-      POSTGRES_DB: tests
+
+
