@@ -1,8 +1,11 @@
 import { server } from '../server.js';
+
 import supertest from 'supertest';
+
 import { mocks as userMocks } from '../testUtils/mocks/users.js';
 import { mocks as productMocks } from '../testUtils/mocks/products.js';
 import { mocks as orderMocks } from '../testUtils/mocks/orders.js';
+import { routes, BASE_PATH } from "../../config/constants.js";
 
 afterAll(async () => {
   try {
@@ -17,7 +20,7 @@ afterAll(async () => {
 
 describe('test users endpoints', () => {
   it('should return the users', async () => {
-    const response = await supertest("http://localhost:3001").get('/users')
+    const response = await supertest(BASE_PATH).get(routes.users.users)
 
     const { ok, message, users } = response._body;
 
@@ -27,7 +30,7 @@ describe('test users endpoints', () => {
   });
 
   it('should return user by id', async () => {
-    const response = await supertest("http://localhost:3001").get('/user').send({
+    const response = await supertest(BASE_PATH).get(routes.users.user).send({
       'id': 1
     })
 
@@ -47,7 +50,7 @@ describe('test users endpoints', () => {
       points: 1000,
       picture: 'http://www.placeholder.com/image.jpg'
     }
-    const response = await supertest("http://localhost:3001").post('/user').send(newUser)
+    const response = await supertest(BASE_PATH).post(routes.users.user).send(newUser)
 
     const { ok, message, user } = response._body;
 
@@ -56,7 +59,7 @@ describe('test users endpoints', () => {
     expect(user).toMatchObject(newUser)
   });
   it('should remove user by id', async () => {
-    const response = await supertest("http://localhost:3001").delete('/user').send({ id: '1' })
+    const response = await supertest(BASE_PATH).delete(routes.users.user).send({ id: '1' })
 
     const { ok, message, user } = response._body;
     expect(ok).toEqual(true)
@@ -67,7 +70,7 @@ describe('test users endpoints', () => {
 
 describe('test products endpoints', () => {
   it('should return the products', async () => {
-    const response = await supertest("http://localhost:3001").get('/products')
+    const response = await supertest(BASE_PATH).get(routes.products.products)
 
     const { ok, message, products } = response._body;
 
@@ -77,7 +80,7 @@ describe('test products endpoints', () => {
   });
 
   it('should return product by id', async () => {
-    const response = await supertest("http://localhost:3001").get('/product').send({
+    const response = await supertest(BASE_PATH).get(routes.products.product).send({
       'id': 1
     })
 
@@ -96,7 +99,7 @@ describe('test products endpoints', () => {
       image: 'http://www.placeholder.com/image.jpg'
 
     }
-    const response = await supertest("http://localhost:3001").post('/product').send(newProduct)
+    const response = await supertest(BASE_PATH).post(routes.products.product).send(newProduct)
 
     const { ok, message, product } = response._body;
 
@@ -105,7 +108,7 @@ describe('test products endpoints', () => {
     expect(product).toMatchObject(newProduct)
   });
   it('should remove product by id', async () => {
-    const response = await supertest("http://localhost:3001").delete('/product').send({ id: '1' })
+    const response = await supertest(BASE_PATH).delete(routes.products.product).send({ id: '1' })
 
     const { ok, message, product } = response._body;
     expect(ok).toEqual(true)
@@ -113,52 +116,50 @@ describe('test products endpoints', () => {
     expect(product).toBe(null)
   });
   it('should get products of a specific user', async () => {
-    const response = await supertest("http://localhost:3001").get('/products/user/2')
-    console.log(response, 'res>?')
+    const endpoint = routes.products.productsByUser.replace(":id", "2")
+
+    const response = await supertest(BASE_PATH).get(endpoint)
     const { ok, message, products } = response._body;
     expect(ok).toEqual(true)
     expect(message).toEqual('Products status by user found')
-    // expect(products).toHaveLength(10)
   });
 });
 
 describe('test orders endpoints', () => {
   it('should return all the orders', async () => {
-    const response = await supertest("http://localhost:3001").get('/orders')
+    const response = await supertest(BASE_PATH).get(routes.orders.orders)
 
     const { ok, message, orders } = response._body;
 
     expect(ok).toEqual(true)
     expect(message).toEqual('Orders found')
-    expect(orders).toHaveLength(16)
-  });
-
-  it('should return order by id', async () => {
-    const response = await supertest("http://localhost:3001").get('/order').send({
-      'id': 1
-    })
-
-    const { ok, message, order } = response._body;
-
-    expect(ok).toEqual(true)
-    expect(message).toEqual('Order by id found')
-    expect(order).toMatchObject(orderMocks[0])
+    expect(orders).toHaveLength(13)
   });
   it('should add order', async () => {
     const newOrder = {
-      userId: 1,
+      userId: 3,
       productId: 2
     }
-    const response = await supertest("http://localhost:3001").post('/order').send(newOrder)
-
+    const response = await supertest(BASE_PATH).post(routes.orders.order).send(newOrder)
     const { ok, message, order } = response._body;
 
     expect(ok).toEqual(true)
     expect(message).toEqual('Order created')
     expect(order).toMatchObject(newOrder)
   });
+  it('should return order by id', async () => {
+    const response = await supertest(BASE_PATH).get(routes.orders.order).send({
+      'id': 2
+    })
+
+    const { ok, message, order } = response._body;
+
+    expect(ok).toEqual(true)
+    expect(message).toEqual('Order by id found')
+    expect(order).toMatchObject(orderMocks[1])
+  });
   it('should remove order by id', async () => {
-    const response = await supertest("http://localhost:3001").delete('/order').send({ id: '1' })
+    const response = await supertest(BASE_PATH).delete(routes.orders.order).send({ id: '2' })
 
     const { ok, message, order } = response._body;
     expect(ok).toEqual(true)
@@ -166,11 +167,12 @@ describe('test orders endpoints', () => {
     expect(order).toBe(null)
   });
   it('should get orders of a specific user', async () => {
-    const response = await supertest("http://localhost:3001").get('/orders/user/2')
+    const endpoint = routes.orders.ordersByUser.replace(":id", "2")
+    const response = await supertest(BASE_PATH).get(endpoint)
     const { ok, message, orders } = response._body;
 
     expect(ok).toEqual(true)
     expect(message).toEqual('Orders by user id found')
-    expect(orders).toHaveLength(10)
+    expect(orders).toHaveLength(9)
   });
 });
