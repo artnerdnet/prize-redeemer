@@ -6,21 +6,27 @@
   "type": "module",
   "scripts": {
     "client": "npm run start --prefix client",
-    "start:dev": "nodemon --inspect ./src/server.js",
-    "test": "jest --config ./jest.config.json",
-    "test:watch": "yarn test . --watch"
+    "start": "nodemon --inspect ./src/server.js",
+    "docker:run": "docker run -p 3001:3001 express --env-file .env.dev",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test": "docker-compose -f docker-compose.test.yml && dotenv -e .env.test -- npx prisma migrate reset -f && dotenv -e .env.test jest -i",
+    "test:migrate:postgres": "dotenv -e .env.test -- npx prisma migrate dev --schema ./prisma/schema.prisma --name postgres-init --skip-seed",
+    "test:migrate:reset": "dotenv -e .env.test -- npx prisma migrate reset --schema ./prisma/schema.prisma",
+    "test:db:seed": "dotenv -e .env.test -- npx prisma db seed"
   },
   "prisma": {
     "seed": "node ./prisma/seed.js --compiler-options {\"module\":\"CommonJS\"}"
   },
   "imports": {
+    "#src": "./src",
     "#config/*": "./config/*",
     "#controllers/*": "./src/controllers/*",
     "#helpers/*": "./src/helpers/*.js",
     "#lib/*": "./src/lib/*",
     "#routes/*": "./src/routes/index.js",
     "#services/*": "./src/services/*",
-    "#testUtils/*": "./testUtils/*"
+    "#testUtils/*": "./src/testUtils/*"
   },
   "keywords": [],
   "author": "",
@@ -43,11 +49,13 @@
     "@babel/preset-env": "^7.18.0",
     "@jest-mock/express": "^1.4.5",
     "babel-jest": "^28.1.0",
+    "dotenv-cli": "^5.1.0",
     "eslint": "^7.32.0",
     "jest": "^28.1.0",
     "jest-mock-extended": "^2.0.6",
     "nodemon": "^2.0.14",
     "prisma": "3.12.0",
-    "prisma-mock": "^0.0.27"
+    "prisma-mock": "^0.0.27",
+    "supertest": "^6.2.3"
   }
 }

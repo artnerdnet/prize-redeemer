@@ -4,10 +4,10 @@ import { findOrderById, editOrder, removeOrder, addOrder, findAllOrders, findAll
 const router = express.Router();
 
 router.route('/order')
+  .post(addOrder)
   .get(findOrderById)
   .patch(editOrder)
   .delete(removeOrder)
-  .post(addOrder)
 
 router.route('/orders')
   .get(findAllOrders)
