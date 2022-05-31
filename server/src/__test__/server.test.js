@@ -28,7 +28,6 @@ describe('test users endpoints', () => {
     expect(message).toEqual('Users found')
     expect(users).toHaveLength(4)
   });
-
   it('should return user by id', async () => {
     const response = await supertest(BASE_PATH).get(routes.users.user).send({
       'id': 1
@@ -78,7 +77,6 @@ describe('test products endpoints', () => {
     expect(message).toEqual('Products found')
     expect(products).toHaveLength(8)
   });
-
   it('should return product by id', async () => {
     const response = await supertest(BASE_PATH).get(routes.products.product).send({
       'id': 1

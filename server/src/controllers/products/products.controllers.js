@@ -4,30 +4,30 @@ import { getAllRedeemedProducts } from "#controllers/orders/orders.controllers.j
 import { retrieveUserPoints } from "#controllers/users/users.controllers.js"
 import { calcPoints, getStockStatus } from './helpers.js'
 
-export const findProducts = (req, res, next) =>
+export const findProducts = (_, res) =>
   getProducts()
     .then((products) => res.json({ ok: true, message: 'Products found', products }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error fetching products', error))
 
-export const addProduct = async (req, res, next) =>
+export const addProduct = async (req, res) =>
   createProduct(req.body)
     .then((product) => res.json({ ok: true, message: 'Product created', product }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error adding product', error))
 
-export const findProductById = async (req, res, next) =>
+export const findProductById = async (req, res) =>
   getProduct(Number(req.body.id))
     .then((product) => res.json({ ok: true, message: 'Product found', product }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error fetching product', error))
 
-export const editProduct = async (req, res, next) =>
+export const editProduct = async (req, res) =>
   updateProduct(req.body)
     .then((product) => res.json({ ok: true, message: 'Product updated', product }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error editing product', error))
 
-export const removeProduct = async (req, res, next) =>
+export const removeProduct = async (req, res) =>
   deleteProduct(Number(req.body.id))
     .then(() => res.json({ ok: true, message: 'Product deleted', product: null }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error deleting product', error))
 
 export const findProductsStatusByUser = async (req, res, next) => {
   const foundProducts = new Array()
@@ -67,5 +67,11 @@ export const findProductsStatusByUser = async (req, res, next) => {
         })
         .then(() => res.json({ ok: true, message: 'Products status by user found', foundProducts }))
     })
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error getting products status', error))
 }
+
+export const getAllOrderedProducts = async (orders) => await Promise.all(
+  orders.map(async (order) => {
+    return await getProduct(order.productId)
+  })
+)

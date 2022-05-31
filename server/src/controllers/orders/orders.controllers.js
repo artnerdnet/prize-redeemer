@@ -1,27 +1,30 @@
 import { getOrder, getOrders, getOrdersByUserId, createOrder, updateOrder, deleteOrder } from "#services/orders/orders.services.js";
-import { getProduct } from '#services/products/products.services.js';
+import { getAllOrderedProducts } from "#controllers/products/products.controllers.js";
 
-export const findAllOrders = (req, res, next) =>
+export const findAllOrders = (_, res) =>
   getOrders()
     .then((orders) => res.json({ ok: true, message: 'Orders found', orders }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error fetching orders', error))
 
-export const findOrderById = async (req, res, next) =>
+
+export const findOrderById = async (req, res) =>
   getOrder(Number(req.body.id))
     .then((order) => {
       res.json({ ok: true, message: 'Order by id found', order })
     })
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error getting order by id', error))
 
-export const addOrder = async (req, res, next) =>
+
+export const addOrder = async (req, res) =>
   createOrder(req.body)
     .then((order) => res.json({ ok: true, message: 'Order created', order }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error adding order', error))
 
-export const findAllOrdersByUserId = async (req, res, next) => {
+
+export const findAllOrdersByUserId = async (req, res) => {
   getOrdersByUserId(Number(req.params.id))
     .then((orders) => res.json({ ok: true, message: 'Orders by user id found', orders }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error fetching orders by user', error))
 }
 
 export const getAllRedeemedProducts = (id) =>
@@ -34,20 +37,15 @@ export const getAllRedeemedProducts = (id) =>
       }
     })
     .then(products => products)
-    .catch(e => console.log(e))
+    .catch((error) => errorHandler(res, 'Error getting redeemed products', error))
 
-const getAllOrderedProducts = async (orders) => await Promise.all(
-  orders.map(async (order) => {
-    return await getProduct(order.productId)
-  })
-)
-
-export const editOrder = async (req, res, next) =>
+export const editOrder = async (req, res) =>
   updateOrder(req.body)
     .then((order) => res.json({ ok: true, message: 'Order updated', order }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error editing order', error))
 
-export const removeOrder = async (req, res, next) =>
+export const removeOrder = async (req, res) =>
   deleteOrder(Number(req.body.id))
     .then(() => res.json({ ok: true, message: 'Order deleted', order: null }))
-    .catch(next)
+    .catch((error) => errorHandler(res, 'Error deleting order', error))
+
