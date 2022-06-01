@@ -4,12 +4,12 @@ import { findAllUsers, findUserById, editUser, removeUser, addUser } from '#cont
 const router = express.Router();
 
 router.route('/user')
-  .get(findUserById)
-  .patch(editUser)
-  .delete(removeUser)
-  .post(addUser)
+	.get(findUserById)
+	.patch(editUser)
+	.delete(removeUser)
+	.post(addUser);
 
 router.route('/users')
-  .get(findAllUsers)
+	.get(findAllUsers);
 
 export default router;

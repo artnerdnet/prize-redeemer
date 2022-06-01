@@ -10,9 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/', [
-  usersRouter,
-  productsRouter,
-  ordersRouter
-])
+	usersRouter,
+	productsRouter,
+	ordersRouter
+]);
 
-export const server = app.listen(PORT, () => console.log('running on port', PORT))
+export const server = app.listen(PORT, () => console.log('running on port', PORT));

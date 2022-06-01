@@ -4,15 +4,15 @@ import { findProducts, addProduct, findProductById, editProduct, removeProduct, 
 const router = express.Router();
 
 router.route('/product')
-  .get(findProductById)
-  .patch(editProduct)
-  .delete(removeProduct)
-  .post(addProduct)
+	.get(findProductById)
+	.patch(editProduct)
+	.delete(removeProduct)
+	.post(addProduct);
 
 router.route('/products')
-  .get(findProducts)
+	.get(findProducts);
 
 router.route('/products/user/:id')
-  .get(findProductsStatusByUser)
+	.get(findProductsStatusByUser);
 
 export default router;

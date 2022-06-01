@@ -1,14 +1,14 @@
-import { mockDeep, mockReset } from 'jest-mock-extended'
+import { mockDeep, mockReset } from 'jest-mock-extended';
 
-import prisma from '../config/db.js'
+import prisma from '../config/db.js';
 
 jest.mock('./client', () => ({
-  __esModule: true,
-  default: mockDeep(),
-}))
+	__esModule: true,
+	default: mockDeep(),
+}));
 
 beforeEach(() => {
-  mockReset(prismaMock)
-})
+	mockReset(prismaMock);
+});
 
-export const prismaMock = prisma
+export const prismaMock = prisma;
