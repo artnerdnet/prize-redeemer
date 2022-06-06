@@ -1,15 +1,28 @@
-FROM node:18
+FROM node:18-alpine AS builder
+RUN npm i -g nodemon
+# Create app directory
+WORKDIR /home/node/src
 
-WORKDIR /usr/src/
-ENV NODE_ENV development
-
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
-COPY ./src src
-COPY ./prisma prisma
-COPY ./config config
-
-RUN yarn
-
+COPY prisma ./prisma/
+COPY config ./config/
 COPY . .
 
-CMD ["yarn", "start"]
+# Install app dependencies
+RUN npm install
+RUN apk add --no-cache bash
+
+
+RUN npm ci
+
+FROM node:18-alpine
+RUN apk add --update nodejs
+
+RUN mkdir /home/node/src/
+
+COPY --from=builder /home/node/src/ ./home/node/src/
+
+WORKDIR /home/node/src
+
+CMD ["npm", "start" ]

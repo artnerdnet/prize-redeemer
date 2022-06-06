@@ -1,7 +1,7 @@
 # Server
 
 ## Install and start
-`yarn install` and `yarn start:dev` to run the project.
+`npm install` and `npm run dev` to run the project.
 
 ## Start the DB
 Start it with: `brew services start postgresql`

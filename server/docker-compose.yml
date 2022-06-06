@@ -1,26 +1,30 @@
 # Set the version of docker compose to use
-version: '3.9'
+version: "3.9"
 
 services:
   server:
+    build: .
     container_name: server
-    command: yarn start
-    volumes:
-      - .:/usr/src/
-      - /usr/src/node_modules
+    command: npm start
     ports:
       - "3001:3001"
     depends_on:
-      - dbtest
-    env_file: 
+      - postgres
+    environment:
+      - HOST=0.0.0.0
+    env_file:
       - ./.env.dev
-  dbtest:
-    env_file: 
-      - ./.env.test
+    volumes:
+      - .:/usr/src/
+      - /usr/src/node_modules
+  postgres:
     image: postgres:13
     restart: always
-    container_name: testdb
+    container_name: db
     ports:
-      - '5433:5432'
-
-
+      - "5433:5432"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/rewards?schema=public
+    env_file:
+      - ./.env.dev

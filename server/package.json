@@ -6,15 +6,18 @@
   "type": "module",
   "scripts": {
     "client": "npm run start --prefix client",
-    "start": "nodemon --inspect ./src/server.js",
+    "start:db": "dotenv -e .env.dev -- npx prisma migrate dev --schema ./prisma/schema.prisma --name postgres-init --skip-seed",
+    "dev": "docker-compose up",
+    "start": "nodemon --inspect ./src/index.js",
     "lint": "eslint . --fix",
-    "docker:run": "docker run -p 3001:3001 express --env-file .env.dev",
+    "docker:run": "docker run --env-file .env.dev -p 3001:3001 express",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "test": "docker-compose -f docker-compose.test.yml && dotenv -e .env.test -- npx prisma migrate reset -f && dotenv -e .env.test jest -i",
     "test:migrate:postgres": "dotenv -e .env.test -- npx prisma migrate dev --schema ./prisma/schema.prisma --name postgres-init --skip-seed",
     "test:migrate:reset": "dotenv -e .env.test -- npx prisma migrate reset --schema ./prisma/schema.prisma",
-    "test:db:seed": "dotenv -e .env.test -- npx prisma db seed"
+    "test:db:seed": "dotenv -e .env.test -- npx prisma db seed",
+    "postinstall": "npx prisma generate"
   },
   "prisma": {
     "seed": "node ./prisma/seed.js --compiler-options {\"module\":\"CommonJS\"}"

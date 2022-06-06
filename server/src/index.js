@@ -4,6 +4,7 @@ import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || 'localhost';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,4 +16,4 @@ app.use('/', [
 	ordersRouter
 ]);
 
-export const server = app.listen(PORT, () => console.log('running on port', PORT));
+export const server = app.listen(PORT, HOST);
