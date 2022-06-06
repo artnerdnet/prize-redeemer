@@ -15,4 +15,4 @@ app.use('/', [
 	ordersRouter
 ]);
 
-export const server = app.listen(PORT, () => console.log('running on port', PORT));
+export const server = app.listen(PORT, () => console.log('running on port', PORT, process.env));

@@ -1,0 +1,29 @@
+# Set the version of docker compose to use
+version: '3.9'
+
+services:
+  server:
+    container_name: server
+    command: yarn start
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    links:
+      - db
+    restart: always
+    env_file:
+      - ./.env.dev
+    ports:
+      - 3001:3001
+  db:
+    env_file:
+      - ./.env.dev
+    image: postgres:13
+    restart: always
+    container_name: localhost
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432

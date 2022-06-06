@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  node:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    image: server
+    db:
+      image: postgres:13
+      restart: always
+      container_name: integration-tests-prisma
+      ports:
+        - '5433:5432'
+      environment:
+        POSTGRES_USER: ${DB_USERNAME}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DATABASE_URL}
+        PORT: 5432

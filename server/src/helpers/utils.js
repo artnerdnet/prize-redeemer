@@ -1,6 +1,7 @@
 import prisma from '#config/db.js';
 
 export const transactionHandler = (table) => {
+	console.log(prisma, 'prisma');
 	const findAll = async () => await prisma[table].findMany();
 	const findById = async (id) => await prisma[table].findUnique({ where: { id } });
 	const findByKey = async (key) => await prisma[table].findUnique({ where: key });
