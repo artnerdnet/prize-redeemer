@@ -1,10 +1,12 @@
 import { getUsers, getUser, createUser, updateUser, deleteUser, getUserPoints } from '#services/users/users.services.js';
 import { errorHandler } from '#lib/errorHandler/error.js';
 
-export const findAllUsers = (_, res) =>
+export const findAllUsers = (_, res) => {
+	console.log('looking for users');
 	getUsers()
 		.then((users) => res.json({ ok: true, message: 'Users found', users }))
 		.catch((error) => errorHandler(res, 'Error getting users', error));
+};
 
 export const addUser = async (req, res) =>
 	createUser(req.body)
